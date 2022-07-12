@@ -1,12 +1,15 @@
 import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../config/Userservice";
 
 export default function Topbar() {
     const navigate = useNavigate();
     const logout = () => {
-        localStorage.clear();
-        navigate("/");
+        logoutUser().then(() => {
+            localStorage.clear();
+            navigate("/");
+        });
     };
     return (
         <div style={{ border: "1px solid black" }}>

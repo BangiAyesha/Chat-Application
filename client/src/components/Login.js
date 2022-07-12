@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCheck } from "@fortawesome/free-solid-svg-icons";
@@ -23,17 +23,24 @@ export default function Login() {
         const { name, value } = event.target;
         setData({ ...data, [name]: value });
     };
-    // console.log(data);
+
+    useEffect(() => {
+        let token = localStorage.getItem("_token");
+        if (token) {
+            navigate("/home");
+        }
+    }, []);
 
     const loginUsers = (event) => {
         event.preventDefault();
         loginUser(data).then((res) => {
             if (res.data.flag === 1) {
+                localStorage.setItem("user", JSON.stringify(res.data.user));
+                localStorage.setItem("_token", res.data.token);
                 success(res.data.message);
                 console.log(res.data.token);
-                localStorage.setItem("user", JSON.stringify(res.data.user));
-                localStorage.setItem("_token", JSON.stringify(res.data.token));
                 navigate("/home");
+                window.location.reload(true);
             } else if (res.data.flag === 0) {
                 failure(res.data.message);
             } else if (res.data.err === 0) {

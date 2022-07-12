@@ -7,7 +7,7 @@ const {
 const router = express.Router();
 const { verifyToken } = require("../middlewares/auth");
 
-router.post("/addconversation", verifyToken, addConversation);
+router.post("/addconversation", addConversation);
 
 router.get("/conversation/:id", verifyToken, getConversation);
 

@@ -18,14 +18,13 @@ export default function Messenger() {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
 
-    // let token = localStorage.getItem("_token");
-    // let decode = jwt_decode(token);
-    // console.log(decode, "decode");
-
-    // if (!decode) {
-    //     localStorage.clear();
-    //     navigate("/");
-    // }
+    useEffect(() => {
+        let token = localStorage.getItem("_token");
+        if (!token) {
+            localStorage.clear();
+            navigate("/");
+        }
+    }, []);
 
     const socket = useRef();
     const scrollRef = useRef();
@@ -51,17 +50,18 @@ export default function Messenger() {
     }, [arrivalMessage, currentChat]);
 
     useEffect(() => {
-        socket.current.emit("addUser", user._id);
+        socket.current.emit("addUser", user?._id);
         socket.current.on("getUsers", (users) => {
             // console.log(users);
         });
     }, [user]);
 
     useEffect(() => {
-        getConversation(user._id).then((res) => {
+        getConversation(user?._id).then((res) => {
             setConversations(res.data);
         });
-    }, [user._id]);
+        // }, [user._id]);
+    }, []);
 
     // console.log(currentChat);
 
@@ -107,7 +107,7 @@ export default function Messenger() {
     return (
         <>
             <Topbar />
-            {user.name}
+            {user?.name}
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
@@ -139,7 +139,7 @@ export default function Messenger() {
                                                     key={index}
                                                     message={m}
                                                     own={
-                                                        m.senderId === user._id
+                                                        m.senderId === user?._id
                                                     }
                                                     // own={false}
                                                 />

@@ -15,3 +15,9 @@ export function getUser(id) {
         headers: { Authorization: `Bearer ${token}` },
     });
 }
+
+export function logoutUser() {
+    return axios.get(`${URL}logout`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
+}

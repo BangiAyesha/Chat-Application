@@ -7,12 +7,9 @@ export function addConversation(data) {
 }
 
 export function getConversation(id) {
-    return axios.get(
-        `${URL}conversation/${id}`
-        //  {
-        //     headers: { Authorization: `Bearer ${token}` },
-        // }
-    );
+    return axios.get(`${URL}conversation/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+    });
 }
 
 export function getConversationoftwo(ids) {

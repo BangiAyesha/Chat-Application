@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Col, Container, Form, Image, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPen } from "@fortawesome/free-solid-svg-icons";
@@ -16,6 +16,13 @@ export default function Register() {
         toast.error(data, { position: toast.POSITION.TOP_RIGHT });
     const warning = (data) =>
         toast.warn(data, { position: toast.POSITION.TOP_RIGHT });
+
+    useEffect(() => {
+        let token = localStorage.getItem("_token");
+        if (token) {
+            navigate("/home");
+        }
+    }, []);
 
     const registerUsers = () => {
         registerUser(values).then((res) => {

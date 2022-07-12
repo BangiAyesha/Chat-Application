@@ -6,7 +6,7 @@ const {
 } = require("../controllers/messageController");
 const { verifyToken } = require("../middlewares/auth");
 
-router.post("/addmessage", verifyToken, addMessage);
+router.post("/addmessage", addMessage);
 
 router.get("/messages/:id", verifyToken, getUserMessages);
 

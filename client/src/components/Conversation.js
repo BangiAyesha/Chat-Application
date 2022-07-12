@@ -8,7 +8,7 @@ export default function Conversation({ conversation, currentUser }) {
 
     useEffect(() => {
         const friendId = conversation.members.find(
-            (m) => m !== currentUser._id
+            (m) => m !== currentUser?._id
         );
         console.log(friendId);
         getUser(friendId).then((res) => {
@@ -25,7 +25,7 @@ export default function Conversation({ conversation, currentUser }) {
                 style={{ width: "40px", height: "40px", borderRadius: "50%" }}
                 src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
             />
-            <span>{user ? user.name : ""}</span>
+            <span>{user?.name}</span>
         </div>
     );
 }
