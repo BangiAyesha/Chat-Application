@@ -10,10 +10,13 @@ export default function Conversation({ conversation, currentUser }) {
         const friendId = conversation.members.find(
             (m) => m !== currentUser._id
         );
+        console.log(friendId);
         getUser(friendId).then((res) => {
+            console.log(res);
             setUser(res.data);
         });
     }, [currentUser, conversation]);
+    console.log(user);
 
     return (
         <div className="conversation">

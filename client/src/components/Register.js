@@ -19,6 +19,7 @@ export default function Register() {
 
     const registerUsers = () => {
         registerUser(values).then((res) => {
+            console.log(res);
             if (res.data.flag === 1) {
                 success(res.data.message);
                 navigate("/");

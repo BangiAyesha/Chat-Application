@@ -30,7 +30,9 @@ export default function Login() {
         loginUser(data).then((res) => {
             if (res.data.flag === 1) {
                 success(res.data.message);
+                console.log(res.data.token);
                 localStorage.setItem("user", JSON.stringify(res.data.user));
+                localStorage.setItem("_token", JSON.stringify(res.data.token));
                 navigate("/home");
             } else if (res.data.flag === 0) {
                 failure(res.data.message);

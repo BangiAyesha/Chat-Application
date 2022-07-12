@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 export default function Topbar() {
     const navigate = useNavigate();
     const logout = () => {
-        localStorage.removeItem("user");
+        localStorage.clear();
         navigate("/");
     };
     return (

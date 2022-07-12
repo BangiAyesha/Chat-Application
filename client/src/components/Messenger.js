@@ -7,13 +7,25 @@ import Conversation from "./Conversation";
 import Message from "./Message";
 import Topbar from "./Topbar";
 import { io } from "socket.io-client";
+import jwt_decode from "jwt-decode";
+import { useNavigate } from "react-router-dom";
 
 export default function Messenger() {
+    const navigate = useNavigate();
     const [conversations, setConversations] = useState([]);
     const [currentChat, setCurrentChat] = useState(null);
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
+
+    // let token = localStorage.getItem("_token");
+    // let decode = jwt_decode(token);
+    // console.log(decode, "decode");
+
+    // if (!decode) {
+    //     localStorage.clear();
+    //     navigate("/");
+    // }
 
     const socket = useRef();
     const scrollRef = useRef();
@@ -22,9 +34,6 @@ export default function Messenger() {
 
     useEffect(() => {
         socket.current = io("ws://localhost:8900");
-        // console.log(
-        //     "Recieving --------------------------------------------------------------"
-        // );
         socket.current.on("getMessage", (data) => {
             console.log(data);
             setArrivalMessage({
@@ -33,7 +42,7 @@ export default function Messenger() {
                 createdAt: Date.now(),
             });
         });
-    }, []);
+    }, [messages, socket]);
 
     useEffect(() => {
         arrivalMessage &&
